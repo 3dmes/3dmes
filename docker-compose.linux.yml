@@ -48,5 +48,5 @@ networks:
 volumes:
   postgres_data:
   uploads:
-    driver: local
+    name: 3dmes-uploads
 
