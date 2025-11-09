@@ -48,4 +48,5 @@ networks:
 volumes:
   postgres_data:
   uploads:
+    driver: local
 
