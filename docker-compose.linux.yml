@@ -13,6 +13,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - mesnet
+    user: "${DOCKER_USER_ID:-1000}:${DOCKER_GROUP_ID:-1000}"
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
     healthcheck:
