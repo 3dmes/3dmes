@@ -24,7 +24,6 @@ services:
   3dmes:
     image: xhbtec/3dmes:${THREEMES_VERSION:-latest}
     container_name: 3dmes-app
-    user: root
     restart: unless-stopped
     depends_on:
       postgres:
