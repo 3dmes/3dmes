@@ -40,7 +40,6 @@ services:
       - "${MQTT_PORT:-1883}:1883"
       - "${MQTTS_PORT:-8883}:8883"
     volumes:
-      - data:/app/data
       - uploads:/app/uploads
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:80/health || exit 1"]
@@ -55,8 +54,6 @@ networks:
 
 volumes:
   postgres_data:
-    driver: local
-  data:
     driver: local
   uploads:
     driver: local
