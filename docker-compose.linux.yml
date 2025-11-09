@@ -39,7 +39,7 @@ services:
       - "${MQTT_PORT:-1883}:1883"
       - "${MQTTS_PORT:-8883}:8883"
     volumes:
-      - uploads:/app/uploads
+      - /opt/3dmes/uploads:/app/uploads
 
 networks:
   mesnet:
