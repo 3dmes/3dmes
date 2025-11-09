@@ -48,5 +48,4 @@ networks:
 volumes:
   postgres_data:
   uploads:
-    name: 3dmes-uploads
 
