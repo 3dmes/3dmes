@@ -6,9 +6,9 @@ services:
     container_name: 3dmes-timescaledb
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${TS_DB:-mesdb}
-      POSTGRES_USER: ${TS_USER:-mesuser}
-      POSTGRES_PASSWORD: ${TS_PASSWORD:-mespassword}
+      POSTGRES_DB: ${TS_DB}
+      POSTGRES_USER: ${TS_USER}
+      POSTGRES_PASSWORD: ${TS_PASSWORD}
       TIMESCALEDB_TELEMETRY: "off"
     volumes:
       - timescale_data:/var/lib/postgresql/data
@@ -31,7 +31,7 @@ services:
         condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
-      ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB:-mesdb};Username=${TS_USER:-mesuser};Password=${TS_PASSWORD:-mespassword}"
+      ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
       ASPNETCORE_URLS: "http://+:80"
     networks:
       - mesnet
