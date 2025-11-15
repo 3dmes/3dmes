@@ -34,9 +34,6 @@ services:
       ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
       ASPNETCORE_URLS: "http://+:80"
 
-      # Admin-Authentifizierung (Optional)
-      # Wenn gesetzt: Admin-User wird beim Start angelegt (falls nicht vorhanden)
-      # und ENV-Passwort hat Vorrang vor DB-Hash beim Login
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@local}
