@@ -33,11 +33,6 @@ services:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
       ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
       
-      # Kestrel HTTPS Konfiguration
-      ASPNETCORE_URLS: "http://+:80;https://+:443"
-      ASPNETCORE_Kestrel__Certificates__Default__Path: /app/cert/certificate.pem
-      ASPNETCORE_Kestrel__Certificates__Default__KeyPath: /app/cert/privatekey.pem
-      
       # Admin Konfiguration
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
@@ -55,8 +50,7 @@ services:
       - "${MQTTS_PORT:-8883}:8883"
     volumes:
       - uploads:/app/uploads
-      - ./cert:/app/cert
-      - ./license.jwt:/app/license.jwt:ro
+      - cert:/app/cert
 
 networks:
   mesnet:
@@ -65,4 +59,4 @@ networks:
 volumes:
   timescale_data:
   uploads:
-
+  cert:
