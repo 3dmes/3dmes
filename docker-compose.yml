@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  timescaledb:
+    image: timescale/timescaledb:2.23.0-pg16
+    container_name: 3dmes-timescaledb
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${TS_DB}
+      POSTGRES_USER: ${TS_USER}
+      POSTGRES_PASSWORD: ${TS_PASSWORD}
+      TIMESCALEDB_TELEMETRY: "off"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    networks:
+      - mesnet
+    ports:
+      - "${TS_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${TS_USER:-mesuser} -d ${TS_DB:-mesdb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  3dmes:
+    image: xhbtec/3dmes:${THREEMES_VERSION:-latest}
+    container_name: 3dmes-app
+    restart: unless-stopped
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
+      ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
+      
+      # Admin Konfiguration
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@local}
+      
+      # PrintPortal Konfiguration
+      PrintPortal__CertificateStoragePath: /app/cert
+      PrintPortal__AutoRenewalCheckIntervalHours: 24
+    networks:
+      - mesnet
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+      - "${MQTT_PORT:-1883}:1883"
+      - "${MQTTS_PORT:-8883}:8883"
+    volumes:
+      - uploads:/app/uploads
+      - cert:/app/cert
+
+networks:
+  mesnet:
+    driver: bridge
+
+volumes:
+  timescale_data:
+  uploads:
+  cert:
