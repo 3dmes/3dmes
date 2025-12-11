@@ -32,7 +32,7 @@ services:
     environment:
       ASPNETCORE_URLS: http://+:80;https://+:443
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
-      ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
+      ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=${TS_PORT};Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
       
       # Admin Konfiguration
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
