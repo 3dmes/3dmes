@@ -30,6 +30,7 @@ services:
       timescaledb:
         condition: service_healthy
     environment:
+      ASPNETCORE_URLS: http://+:80;https://+:443
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
       ConnectionStrings__DefaultConnection: "Host=timescaledb;Port=5432;Database=${TS_DB};Username=${TS_USER};Password=${TS_PASSWORD}"
       
