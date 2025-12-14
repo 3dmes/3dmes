@@ -38,6 +38,7 @@ services:
       ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@local}
+      ADDITIONAL_IP: ${SERVER_IP:-}
       
       # PrintPortal Konfiguration
       PrintPortal__CertificateStoragePath: /app/cert
